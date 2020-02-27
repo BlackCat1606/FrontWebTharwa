@@ -1,0 +1,149 @@
+<!--Composant contenant la liste des compte en cours de traitement ou bloqué des client de la banque -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' 
+rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+    <div class="content-fluid code" id="code" [ngStyle] ="{'display': displayBlur}">
+        <i class="material-icons mail">mail_outline </i>
+        <p id="code-title">Vérifier votre {{mode}}</p>
+        <p>On a envoyé un code a quatre chiffres à <b>{{userId}}</b></p>
+        <p>Entrez le ici pour pouvoir continuer</p>
+        <br>
+        <div>
+            <input [(ngModel)]='code[0]' type="text" maxlength="1" >
+            <input [(ngModel)]='code[1]' type="text" maxlength="1" >
+            - 
+            <input [(ngModel)]='code[2]' type="text" maxlength="1" >
+            <input [(ngModel)]='code[3]' type="text" maxlength="1" >
+        </div>
+        <button class="code-valider" (click)="tryDeleteBlur()">Vérifier mon email</button>
+
+    </div> 
+
+<!--modal contenant des infos sur le compte et le client choisit-->
+    <div id="info" class="modal fade info2" role="dialog">
+        <div class="modal-dialog " id="infoBack">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p>Infomations sur le Compte</p>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="monnaie"
+                    [ngClass] = "{'monnaiedz':monnaie === 'DZD', 'monnaiee':monnaie === 'EUR'
+                    , 'monnaieus':monnaie === 'USD' }">
+                        {{monnaie}}
+                    </div>
+ 
+                    <div class="form-group label-floating">
+                            <label class="control-label">Numéro de compte</label>
+                            <input type="text" class="form-control" [(ngModel)]="numCompte" 
+                            name="numCompte"readonly>
+                    </div>
+                
+                    <div class="form-group label-floating">
+                            <label class="control-label">Bénéficiaire :</label>
+                            <input type="text" class="form-control" [(ngModel)]="nomClient" 
+                            name="nomClient" readonly>
+                    </div>
+                    <h5 class="align-center">Informations sur le bénéficiaire</h5>
+                    <div class="infoClient">
+                        <i class="material-icons icon-mail">email</i>
+                        <span>{{mail}}</span>
+                        <br>
+                        <i class="material-icons icon-phone">phone</i>{{numTel}}
+                        <br>
+                        <i class="material-icons icon-location">location_on</i>
+                        {{adresseClient}}
+                        <br>
+                        <i class="material-icons icon-work">work</i>{{fonction}}
+                    </div>
+                    
+                </div>
+                <div class="form-footer">
+                    <div class="alert" 
+                    [ngClass]="{'alert-success': success===true, 'alert-danger':success===false,
+                    'invisible' : success ===NULL}">
+                        {{textSuccess}}
+                    </div>
+                    <button type="button" class="btn btn-danger pull-left" id="bloquer"
+                    (click) = "bloquer()">
+                        Rejeter
+                    </button>
+
+                    <button type="button" class="btn btn-success pull-right" id="valider"
+                    (click) = "valider()">
+                        Valider
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!--Table des comptes non encore traités -->
+    <div class="container-cards" [ngClass] = "{'body':getBlurState()=== true}">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input class="form-control" id="myInput" type="text" placeholder="Rechercher dans la table ...">
+                        <div class="card">
+                            <div class="card-content ">
+                                <br>
+                                <br>
+                                <div class="alert" 
+                                [ngClass]="{'alert-danger':successGet===false, 'invisible':successGet!=false}">
+                                    {{textFailed}}
+                                </div>
+                                <table class="table" id="myTable">
+                                    <thead class="table-header">
+                                        <li>Numéro</li>
+                                        <li>Détenteur</li>
+                                        <li>Date</li>
+                                        <li>Monnaie</li>
+                                        <li>Type</li>
+                                        
+                                    </thead>
+                                            
+                                    <tbody id="tbody">
+                                        <tr *ngFor="let compte of comptes">
+                                            <td>{{compte.Num}}</td>
+                                            <td>{{compte.IdUser}}</td>
+                                            <td>{{compte.DateCreation}}</td>
+                                            <td>{{compte.CodeMonnaie}}</td>
+                                            
+                                            <td>{{compte.TypeCompte}}</td>
+                                            <td>
+                                                <i class="material-icons" data-toggle="modal" 
+                                                data-target="#info"
+                                                (click)="voirInfoCompte(compte.IdUser)">
+                                                visibility
+                                                </i>
+                                            </td>
+                                        </tr>
+
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<nav class="navbar navbar-fixed-top navGeneral"
+[ngClass] = "{'body':getBlurState()===true}">
+    <div class="container-fluid">
+
+        <ul class="nav navbar-nav ">
+            <li>
+                <i (click)="showMenu()" id="sideMenuDisplayer" class="material-icons">menu</i>
+            </li>
+        </ul>
+        <ul class="navbar-nav navUl ">
+
+            <li>
+                <a href="">
+                    <i class="material-icons" (click)="Deconnexion()">flash_on</i>
+                    <span class="nav-text">Deconnexion</span>
+                </a>
+            </li>                  
+        </ul>
+
+
+    </div>
+</nav>
+
+
+

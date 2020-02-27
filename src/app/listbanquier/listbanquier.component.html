@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div class="card-content ">
+                            <br> 
+                            <br>
+                            <div class="alert" 
+                            [ngClass]="{'alert-danger':successGet===false,'invisible': successGet!=false }">
+                                {{textFailed}}
+                            </div>
+                            <table class="table">
+                                <thead class="table-header">
+                                    <li>Mail</li>
+                                    <li>Nom</li>
+                                    <li>Prenom</li>
+                                    <li>Telephone</li>
+                                </thead>
+                                       
+                                <tbody id="tbody">
+                                    <tr *ngFor="let banquier of banquiers">
+                                        <td >{{banquier.userId}}</td>
+                                        <td >{{banquier.nom}}</td>
+                                        <td >{{banquier.prenom}}</td>
+                                        
+                                        <td >{{banquier.numTel}}</td>
+                                    </tr>
+                                    <div  class="add-banquier"><a routerLink="../addbanquier">+</a></div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div  class="add-banquier"><a routerLink ="../addbanquier">+</a></div>
+</body>
+</html>

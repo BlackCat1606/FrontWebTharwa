@@ -1,0 +1,50 @@
+.card
+{
+    width:95%; 
+    top: 5mm;
+}
+
+form
+{
+    width: 100%;
+
+    align-content: center;
+    align-items: center;
+}
+
+@media(min-width:1081px)
+{
+    .content
+    {
+        margin-left: 25%;
+        width: 75%;
+    }
+
+    form .form-group
+    {
+        width: 50%;
+    }
+
+    form .form-group:nth-child(1)
+    {
+        width: 20%;
+    }
+}
+
+@media(max-width:1080px)
+{
+    .content
+    {
+        margin-left: 5%;
+        width: 90%;
+    }
+}
+
+@media(max-width:762px)
+{
+    .content
+    {
+        margin-left: 5%;
+        width: 90%;
+    }
+}
